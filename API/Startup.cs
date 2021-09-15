@@ -39,8 +39,11 @@ namespace API
            // services.AddScoped<IProductRepository, ProductRepository>();
 
               services.AddAutoMapper(typeof(MappingProfiles));
-            services.AddDbContext<StoreContext>(x =>
-            x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<StoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            /*services.AddDbContext<StoreContext>(x =>
+            x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));*/
 
           
 
@@ -48,6 +51,14 @@ namespace API
 
             services.AddApplicationServices();
             services.AddSwaggerDocumentation();
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200/");
+                });
+            });
 
         }
 
@@ -64,6 +75,8 @@ namespace API
             app.UseRouting();
 
             app.UseStaticFiles();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 
