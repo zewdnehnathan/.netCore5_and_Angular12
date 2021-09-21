@@ -1,12 +1,16 @@
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './core/core.module';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { FormsModule } from '@angular/forms';
 import { HomeModule } from './home/home.module';
-import { HttpClientModule } from '@angular/common/http';
+import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { NgModule } from '@angular/core';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { ShopModule } from './shop/shop.module';
 
 @NgModule({
@@ -19,9 +23,13 @@ import { ShopModule } from './shop/shop.module';
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
-    HomeModule
+    HomeModule,
+    NgxSpinnerModule
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS, useClass:ErrorInterceptor,multi:true},
+    {provide:HTTP_INTERCEPTORS, useClass:LoadingInterceptor,multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
