@@ -6,6 +6,7 @@ import { IPagination } from '../shared/models/pagination';
 import { IProduct } from '../shared/models/products';
 import { IType } from '../shared/models/productType';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { shopParams } from '../shared/models/shopParams';
 
 @Injectable({
@@ -13,7 +14,7 @@ import { shopParams } from '../shared/models/shopParams';
 })
 export class ShopService {
 
-  baseUrl = 'https://localhost:44305/api/';
+  baseUrl = environment.apiUrl;
 
   constructor(private http:HttpClient) { }
 
