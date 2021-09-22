@@ -1,5 +1,6 @@
 ﻿using API.Errors;
 using Core.Entities;
+using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,8 +17,10 @@ namespace API.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services) 
         {
             services.AddScoped<IGenericRepository<Product>, GenericRepository<Product>>();
+            services.AddTransient<IBasketRepository, BasketRepository>();
             services.AddScoped<IGenericRepository<ProductType>, GenericRepository<ProductType>>();
             services.AddScoped<IGenericRepository<ProductBrand>, GenericRepository<ProductBrand>>();
+          
 
             services.Configure<ApiBehaviorOptions>(options => {
                 options.InvalidModelStateResponseFactory = actionContext =>
@@ -35,6 +38,7 @@ namespace API.Extensions
                 };
             });
 
+            
             return services;
         }
 
