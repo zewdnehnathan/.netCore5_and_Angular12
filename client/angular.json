@@ -80,13 +80,13 @@
               "browserTarget": "client:build:production",
               "sslKey": "ssl/server.key",
               "sslCert": "ssl/server.crt",
-              "ssl": true
+              "ssl": false
             },
             "development": {
               "browserTarget": "client:build:development",
               "sslKey": "ssl/server.key",
               "sslCert": "ssl/server.crt",
-              "ssl": true
+              "ssl": false
             }
           },
           "defaultConfiguration": "development"

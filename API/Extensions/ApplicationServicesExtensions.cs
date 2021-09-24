@@ -2,6 +2,7 @@
 using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,6 +17,7 @@ namespace API.Extensions
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services) 
         {
+            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IGenericRepository<Product>, GenericRepository<Product>>();
             services.AddTransient<IBasketRepository, BasketRepository>();
             services.AddScoped<IGenericRepository<ProductType>, GenericRepository<ProductType>>();
